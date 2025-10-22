@@ -41,9 +41,13 @@ def build_dim_product(data: dict, output_path):
         how="left"
     )
 
-    dim_products = dim_products.rename(columns={"product_id": "id"})
+    dim_products['id'] = range(1, len(dim_products) + 1)
+    dim_products = dim_products.rename(columns={"product_id": "product_key"})
     # Eliminar category_id y reordenar columnas si es necesario
     dim_products = dim_products.drop("category_id", axis=1)
+
+    dim_products = dim_products[['id', 'product_key',
+        'sku','name','list_price','status','created_at','category_name','parent_category_name']]
 
     # salida en warehouse/dim
     file_path = output_path / "dim" / "dim_products.csv"
