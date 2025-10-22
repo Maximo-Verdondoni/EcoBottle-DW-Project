@@ -31,11 +31,13 @@ def build_dim_store(data: dict, output_path):
         how="left"
     )
 
-    stores_complete = stores_complete.rename(columns={"store_id": "id"})
+    stores_complete['id'] = range(1, len(stores_complete) + 1)
+    stores_complete = stores_complete.rename(columns={"store_id": "store_key"})
 
     # Seleccionar y renombrar columnas finales
     dim_store = stores_complete[[
         'id',
+        'store_key',
         'name',
         'line1',
         'line2', 
