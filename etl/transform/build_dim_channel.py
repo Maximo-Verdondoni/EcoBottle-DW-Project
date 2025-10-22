@@ -8,6 +8,7 @@ def build_dim_channel(data: dict, output_path):
     """
     dim_channel = data["channel"].copy()
 
+    dim_channel = dim_channel.rename(columns={"channel_id": "id"})
 
     # salida en warehouse/dim
     file_path = output_path / "dim" / "dim_channel.csv"

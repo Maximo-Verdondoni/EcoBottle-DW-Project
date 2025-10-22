@@ -8,6 +8,7 @@ def build_dim_customer(data: dict, output_path):
     """
     dim_customer = data["customer"].copy()
 
+    dim_customer = dim_customer.rename(columns={"customer_id": "id"})
 
     # salida en warehouse/dim
     file_path = output_path / "dim" / "dim_customers.csv"

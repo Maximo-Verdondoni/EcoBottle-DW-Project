@@ -41,6 +41,7 @@ def build_dim_product(data: dict, output_path):
         how="left"
     )
 
+    dim_products = dim_products.rename(columns={"product_id": "id"})
     # Eliminar category_id y reordenar columnas si es necesario
     dim_products = dim_products.drop("category_id", axis=1)
 
