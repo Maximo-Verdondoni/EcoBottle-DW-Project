@@ -25,11 +25,12 @@ def build_dim_address(data: dict, output_path):
     )
 
     # CREAR SURROGATE KEY 
+    dim_address = dim_address.rename(columns={'address_id' : 'address_key'})
     dim_address['id'] = range(1, len(dim_address) + 1)
 
     # Reordenar columnas - ID surrogada primero, mantener address_id como business key
     dim_address = dim_address[[
-        'id',                           # Surrogate key
+        'id', 'address_key',                           # Surrogate key
         'line1', 'line2', 'city', 
         'province_name', 'province_code',
         'postal_code', 'country_code', 'address_type', 'created_at'
