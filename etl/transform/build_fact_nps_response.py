@@ -13,22 +13,21 @@ def build_fact_nps_response(data,dim_customer,dim_channel,dim_calendar, output_p
         nps_responses,
         dim_customer, 
         left_on='customer_id', 
-        right_on='id',
+        right_on='customer_key',
         how='left',
         suffixes=('_nk', '_sk') # _nk para nps_responses, _sk para dim_customer
     )
-    fact_nps_response = fact_nps_response.drop(columns=["customer_id"])
+    fact_nps_response = fact_nps_response.drop(columns=["customer_id", "customer_key"])
     fact_nps_response = fact_nps_response.rename(columns={'id': 'customer_id'})
 
     fact_nps_response = pd.merge(
         fact_nps_response,
         dim_channel, 
         left_on='channel_id', 
-        right_on='id',
-        how='left',
-        suffixes=('_nk', '_sk') # _nk para nps_responses, _sk para dim_channel
+        right_on='channel_key',
+        how='left'
     )
-    fact_nps_response = fact_nps_response.drop(columns=["channel_id"])
+    fact_nps_response = fact_nps_response.drop(columns=["channel_id", "channel_key"])
     fact_nps_response = fact_nps_response.rename(columns={'id': 'channel_id'})    
 
     #Separamos responded_at en fecha y hora
