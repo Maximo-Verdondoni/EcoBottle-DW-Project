@@ -17,7 +17,7 @@ def extract_all():
     """
     data = {
         "address": load_csv("address.csv"),
-        "channel": load_csv("channelcsv"),
+        "channel": load_csv("channel.csv"),
         "customer": load_csv("customer.csv"),
         "nps_response": load_csv("nps_response.csv"),
         "payment": load_csv("payment.csv"),
