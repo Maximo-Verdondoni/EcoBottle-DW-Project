@@ -1,4 +1,4 @@
-id,customer_id,billing_address_id,channel_id,store_id,method,status,amount,paid_at_date_id,paid_at_time,transaction_ref
+id,customer_id,billing_address_id,channel_id,store_id,method,status_payment,amount,paid_at_date_id,paid_at_time,transaction_ref
 1,356,1914,1,,CARD,PAID,63636.0,697,00:50:47,TX-1HW3GM7Q6LFJ
 2,601,2807,1,,GATEWAY,PENDING,78146.4,,,
 3,1234,130,1,,CARD,PAID,32064.6,790,07:39:44,TX-8PBOWVHD7B4I
