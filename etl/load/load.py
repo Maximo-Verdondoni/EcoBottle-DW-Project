@@ -1,6 +1,7 @@
 # etl/load.py
 from pathlib import Path
 from etl.extract.extract import extract_all
+from etl.transform.build_dim_calendar import build_dim_calendar
 #from etl.transform.build_dim_product import build as build_dim_product
 
 OUTPUT_PATH = Path("warehouse")  #A donde apunta el pipeline
