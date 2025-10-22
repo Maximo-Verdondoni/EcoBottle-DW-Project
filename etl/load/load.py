@@ -25,7 +25,7 @@ def run_pipeline():
     df_dim_channel = build_dim_channel(data, OUTPUT_PATH)
     df_dim_store = build_dim_store(data, OUTPUT_PATH)
 
-    df_fact_nps_response = build_fact_nps_response(data, df_dim_customer, df_dim_channel, OUTPUT_PATH)
+    df_fact_nps_response = build_fact_nps_response(data, df_dim_customer, df_dim_channel,df_dim_calendar, OUTPUT_PATH)
     #df_dim_products = build_dim_product(data, OUTPUT_PATH)
 
     print("✅ Pipeline completado. Archivos guardados en warehouse/")
