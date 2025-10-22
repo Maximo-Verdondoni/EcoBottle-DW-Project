@@ -9,17 +9,18 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
     sales_order = data["sales_order"].copy()
     customers_raw = data["customer"].copy()
     addresses_raw = data["address"].copy()
+    channels_raw = data["channel"].copy()
     dim_calendar = dim_calendar.copy()
     dim_customer = dim_customer.copy()
     dim_channel = dim_channel.copy()
     dim_address = dim_address.copy()
 
     ## DIM_CUSTOMER
-    #agarramos las ids de customer y shipping_address a traves de sales_order, y le buscamos sus surrogadas en sus dim y nos la quedamos en fact_shipment
-    # PASO 1: Obtener customer_id/shipping_address_id desde sales_order
+    #agarramos las ids de customer y shipping_address y channel a traves de sales_order, y le buscamos sus surrogadas en sus dim y nos la quedamos en fact_shipment
+    # PASO 1: Obtener customer_id/shipping_address_id/channel_id desde sales_order
     fact_shipment = pd.merge(
         fact_shipment,
-        sales_order[['order_id', 'customer_id', 'shipping_address_id']],
+        sales_order[['order_id', 'customer_id', 'shipping_address_id', 'channel_id']],
         on='order_id',
         how='left'
     )
@@ -53,7 +54,7 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
         dim_address.reset_index()[['id']], 
         left_index=True, 
         right_index=True
-    ).rename(columns={'id': 'address_sk'})
+    ).rename(columns={'id': 'shipping_address_sk'})
     # PASO 2: Obtener la surrogate key de dim_address
     fact_shipment = pd.merge(
         fact_shipment,
@@ -63,9 +64,30 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
         how='left'
     )
     # borramos la id original y nos quedamos con la surrogada
-    fact_shipment = fact_shipment.drop(columns=["address_id"])
-    fact_shipment = fact_shipment.rename(columns={'address_sk': 'shipping_address_id'})
+    fact_shipment = fact_shipment.drop(columns=["address_id", "shipping_address_id"]) #Borramos las ids originales
+    fact_shipment = fact_shipment.rename(columns={'shipping_address_sk': 'shipping_address_id'})
 
+    # DIM_CHANNEL
+    #buscamos channel_id en order_sales, buscamos su surrogada en dim_channel
+    # y nos traemos esa columna en la fact
+    # PASO 1: Crear mapeo de channel_id business key a surrogate key
+    # Necesitamos los datos crudos de channel para tener el channel_id original
+    channel_map = channels_raw[['channel_id']].reset_index(drop=True)
+    channel_map = channel_map.merge(
+        dim_channel.reset_index()[['id']], 
+        left_index=True, 
+        right_index=True
+    ).rename(columns={'id': 'channel_sk'})
+    # PASO 2: Obtener la surrogate key de dim_channel
+    fact_shipment = pd.merge(
+        fact_shipment,
+        channel_map,
+        on="channel_id",
+        how='left'
+    )
+    # borramos la id original y nos quedamos con la surrogada
+    fact_shipment = fact_shipment.drop(columns=["channel_id"])
+    fact_shipment = fact_shipment.rename(columns={'channel_sk': 'channel_id'})
 
     #separamos shipped_at y delivered_at en fecha y hora
     fact_shipment['shipped_at'] = pd.to_datetime(fact_shipment['shipped_at'])
@@ -84,6 +106,7 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
     fact_shipment = fact_shipment.drop(columns=["shipped_at_date", "date"])
     fact_shipment = fact_shipment.rename(columns={'id': 'shipped_at_date_id'})
     fact_shipment["shipped_at_date_id"] = fact_shipment["shipped_at_date_id"].astype("Int64") #algunas veces la FK es null
+
 
     fact_shipment['delivered_at'] = pd.to_datetime(fact_shipment['delivered_at'])
     fact_shipment['delivered_at_date'] = fact_shipment['delivered_at'].dt.normalize()
@@ -107,7 +130,7 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
 
     # Seleccionar y renombrar columnas finales
     fact_shipment = fact_shipment[[
-        'id', "order_id", "customer_id", "shipping_address_id",
+        'id', "customer_id", "shipping_address_id", "channel_id",
         'carrier','shipped_at_date_id','shipped_at_time','delivered_at_date_id',
         'delivered_at_time','tracking_number'
     ]]
