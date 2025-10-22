@@ -10,8 +10,9 @@ def run_pipeline():
 
     print("Construyendo dimensiones y hechos...")
 
+    df_dim_calendar = build_dim_calendar(OUTPUT_PATH, "2023-01-01", "2026-12-31")
     #df_dim_products = build_dim_product(data, OUTPUT_PATH)
-    #df_dim_calendar = build_dim_calendar(OUTPUT_PATH, "2025-01-01", "2025-12-31")
+
     print("✅ Pipeline completado. Archivos guardados en warehouse/")
 
 if __name__ == "__main__":
