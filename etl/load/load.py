@@ -10,6 +10,7 @@ from etl.transform.build_dim_store import build_dim_store
 #from etl.transform.build_dim_product import build as build_dim_product
 
 from etl.transform.build_fact_nps_response import build_fact_nps_response
+from etl.transform.build_fact_shipment import build_fact_shipment
 
 OUTPUT_PATH = Path("warehouse")  #A donde apunta el pipeline
 
@@ -26,6 +27,7 @@ def run_pipeline():
     df_dim_store = build_dim_store(data, OUTPUT_PATH)
 
     df_fact_nps_response = build_fact_nps_response(data, df_dim_customer, df_dim_channel,df_dim_calendar, OUTPUT_PATH)
+    df_fact_shipment = build_fact_shipment(data, df_dim_calendar, df_dim_customer, df_dim_channel, df_dim_address, OUTPUT_PATH)
     #df_dim_products = build_dim_product(data, OUTPUT_PATH)
 
     print("✅ Pipeline completado. Archivos guardados en warehouse/")
