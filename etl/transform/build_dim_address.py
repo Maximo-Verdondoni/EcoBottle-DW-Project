@@ -4,7 +4,7 @@ import pandas as pd
 def build_dim_address(data: dict, output_path):
     """
     Construye la dimensión de dirección desnormalizando con provincia
-    Guarda el resultado en warehouse/dim/dim_customer.csv
+    Guarda el resultado en warehouse/dim/dim_address.csv
     """
     addresses = data["address"].copy()
     provinces = data["province"].copy()
