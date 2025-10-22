@@ -8,7 +8,11 @@ def build_dim_customer(data: dict, output_path):
     """
     dim_customer = data["customer"].copy()
 
-    dim_customer = dim_customer.rename(columns={"customer_id": "id"})
+    dim_customer['id'] = range(1, len(dim_customer) + 1)
+    dim_customer = dim_customer.rename(columns={"customer_id": "customer_key"})
+
+    dim_customer = dim_customer[['id', 'customer_key',
+                   'email','first_name','last_name','phone','status','created_at']]
 
     # salida en warehouse/dim
     file_path = output_path / "dim" / "dim_customers.csv"
