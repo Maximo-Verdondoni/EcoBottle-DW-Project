@@ -19,7 +19,7 @@ El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (P
 ## Diagrama Entidad Relación - OLTP
 A continuación el modelado de la OLTP:
 
-![Diagrama Entidad Relación](./assets/DER.jpeg)
+![Diagrama Entidad Relación](./assets/DER.png)
 
 ---
 
