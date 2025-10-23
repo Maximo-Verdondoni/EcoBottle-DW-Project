@@ -6,7 +6,7 @@ def build_fact_sales_order(data,dim_calendar,dim_customer,dim_channel,dim_store,
     id, customer_id,channel_id, store_id, order_date_id, order_time, billing_address_id, shipping_address_id, 
     status, currency_code, subtotal, tax_amount, shipping_fee, total_amount
     """
-    fact_sales_order = data["sales_order"]
+    fact_sales_order = data["sales_order"].copy()
     fact_sales_order["billing_address_id"] = fact_sales_order["billing_address_id"].astype("Int64")
     fact_sales_order["store_id"] = fact_sales_order["store_id"].astype("Int64")
     dim_calendar = dim_calendar.copy()
