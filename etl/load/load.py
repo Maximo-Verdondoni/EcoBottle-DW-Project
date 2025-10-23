@@ -14,6 +14,7 @@ from etl.transform.build_fact_shipment import build_fact_shipment
 from etl.transform.build_fact_payment import build_fact_payment
 from etl.transform.build_fact_web_session import build_fact_web_session
 from etl.transform.build_fact_sales_order import build_fact_sales_order
+from etl.transform.build_fact_sales_order_item import build_fact_sales_order_item
 
 OUTPUT_PATH = Path("warehouse")  #A donde apunta el pipeline
 
@@ -34,7 +35,7 @@ def run_pipeline():
     df_fact_payment = build_fact_payment(data, df_dim_calendar,df_dim_customer,df_dim_channel,df_dim_address,df_dim_store, OUTPUT_PATH)
     df_fact_web_session = build_fact_web_session(data, df_dim_calendar, df_dim_customer, OUTPUT_PATH)
     df_fact_sales_order = build_fact_sales_order(data, df_dim_calendar, df_dim_customer, df_dim_channel, df_dim_store, df_dim_address, OUTPUT_PATH)
-    #df_dim_products = build_dim_product(data, OUTPUT_PATH)
+    df_fact_sales_order_item = build_fact_sales_order_item(data, df_dim_customer, df_dim_channel, df_dim_store, df_dim_product, OUTPUT_PATH)
 
     print("✅ Pipeline completado. Archivos guardados en warehouse/")
 
