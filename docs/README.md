@@ -16,6 +16,11 @@ El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (P
 * **Looker Studio (Google Data Studio):** Para la visualización y el dashboard.
 
 ---
+## Diagrama Entidad Relación - OLTP
+A continuación el modelado de la OLTP:
+![Diagrama Entidad Relación](./DER.jpeg)
+
+---
 
 ## 🚀 Arquitectura del Proyecto
 
