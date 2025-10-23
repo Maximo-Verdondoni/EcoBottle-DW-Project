@@ -4,7 +4,7 @@ Proyecto final para la materia "Introducción al Marketing Online y los Negocios
 
 El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (Pandas) para crear un Data Warehouse dimensional usando star-schema, y finalmente presenta los KPIs clave en un dashboard de Looker Studio.
 
-**Dashboard Final (Looker Studio):** [Inserta aquí el enlace público a tu dashboard]
+**Dashboard Final (Looker Studio):** [Proximamente...]
 
 ---
 
