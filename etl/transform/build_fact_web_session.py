@@ -2,7 +2,7 @@
 import pandas as pd
 def build_fact_web_session(data,dim_calendar,dim_customer, output_path):
     """
-    Genera una tabla de hechos shipment con campos:
+    Genera una tabla de hechos web_session con campos:
     id, customer_id, started_at_date_id, started_at_time, ended_at_date_id, ended_at_time, source, device
     """
     fact_web_session = data["web_session"].copy()
