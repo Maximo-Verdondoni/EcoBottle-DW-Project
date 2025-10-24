@@ -73,3 +73,35 @@ Sigue estos pasos para ejecutar el pipeline de transformación localmente:
 
 5.  **Verificar la salida:**
     Tras la ejecución, la carpeta `warehouse/` deberá contener las carpetas `dim/` y `fact/` con los archivos .CSV transformados.
+
+---
+
+## ⭐ Modelo de Datos (Diccionario de Datos)
+
+El Data Warehouse (`warehouse/`) se compone de las siguientes tablas:
+
+### Dimensiones (`warehouse/dim/`)
+
+* `dim_address.csv`: Maestro de direcciones, desnormalizado con su provincia.
+* `dim_calendar.csv`: (Generada en Python) Dimensión de tiempo para análisis de series temporales.
+* `dim_channel.csv`: Catálogo de canales de venta (Online/Offline).
+* `dim_customers.csv`: Maestro de clientes.
+* `dim_products.csv`: Maestro de productos, desnormalizado con su categoría.
+* `dim_store.csv`: Maestro de tiendas físicas, desnormalizado con su dirección y provincia.
+
+### Tablas de Hechos (`warehouse/fact/`)
+
+* `fact_sales_order.csv`:
+    * **Grano:** Una fila por orden de venta (cabecera).
+* `fact_sales_order_item.csv`:
+    * **Grano:** Una fila por ítem (producto) dentro de una orden.
+* `fact_nps_response.csv`:
+    * **Grano:** Una fila por respuesta de encuesta NPS.
+* `fact_web_session.csv`:
+    * **Grano:** Una fila por sesión web.
+* `fact_payment.csv`:
+    * **Grano:** Una fila por transacción de pago.
+* `fact_shipment.csv`:
+    * **Grano:** Una fila por envío.
+
+---
