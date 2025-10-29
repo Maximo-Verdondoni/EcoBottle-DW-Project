@@ -111,21 +111,21 @@ El Data Warehouse (`warehouse/`) se compone de las siguientes tablas:
 A continuación, se presentan los diagramas de modelo estrella para cada tabla de hechos.
 
 **Fact Sales Order**
-![Modelo Estrella Sales Order](./docs/assets/Star_Schema_SalesOrder.png)
+![Modelo Estrella Sales Order](./assets/Star_Schema_SalesOrder.png)
 
 **Fact Sales Order Item**
-![Modelo Estrella Sales Order Item](./docs/assets/Star_Schema_SalesOrderItem.png)
+![Modelo Estrella Sales Order Item](./assets/Star_Schema_SalesOrderItem.png)
 
 **Fact NPS Response**
-![Modelo Estrella NPS Response](./docs/assets/Star_Schema_NpsResponse.png)
+![Modelo Estrella NPS Response](./assets/Star_Schema_NpsResponse.png)
 
 **Fact Payment**
-![Modelo Estrella Payment](./docs/assets/Star_Schema_Payment.png)
+![Modelo Estrella Payment](./assets/Star_Schema_Payment.png)
 
 **Fact Shipment**
-![Modelo Estrella Shipment](./docs/assets/Star_Schema_Shipment.png)
+![Modelo Estrella Shipment](./assets/Star_Schema_Shipment.png)
 
 **Fact Web Session**
-![Modelo Estrella Web Session](./docs/assets/Star_Schema_WebSession.png)
+![Modelo Estrella Web Session](./assets/Star_Schema_WebSession.png)
 
 ---
