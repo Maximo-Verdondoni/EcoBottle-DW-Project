@@ -16,7 +16,9 @@ El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (P
 * **Looker Studio (Google Data Studio):** Para la visualización y el dashboard.
 
 ---
+
 ## Diagrama Entidad Relación - OLTP
+
 A continuación el modelado de la OLTP:
 
 ![Diagrama Entidad Relación](./assets/DER.png)
@@ -103,5 +105,27 @@ El Data Warehouse (`warehouse/`) se compone de las siguientes tablas:
     * **Grano:** Una fila por transacción de pago.
 * `fact_shipment.csv`:
     * **Grano:** Una fila por envío.
+
+### Diagramas Star Schema (Tablas de Hechos)
+
+A continuación, se presentan los diagramas de modelo estrella para cada tabla de hechos.
+
+**Fact Sales Order**
+![Modelo Estrella Sales Order](./docs/assets/Star_Schema_SalesOrder.png)
+
+**Fact Sales Order Item**
+![Modelo Estrella Sales Order Item](./docs/assets/Star_Schema_SalesOrderItem.png)
+
+**Fact NPS Response**
+![Modelo Estrella NPS Response](./docs/assets/Star_Schema_NpsResponse.png)
+
+**Fact Payment**
+![Modelo Estrella Payment](./docs/assets/Star_Schema_Payment.png)
+
+**Fact Shipment**
+![Modelo Estrella Shipment](./docs/assets/Star_Schema_Shipment.png)
+
+**Fact Web Session**
+![Modelo Estrella Web Session](./docs/assets/Star_Schema_WebSession.png)
 
 ---
