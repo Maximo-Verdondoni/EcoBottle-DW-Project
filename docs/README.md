@@ -4,8 +4,8 @@ Proyecto final para la materia "Introducción al Marketing Online y los Negocios
 
 El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (Pandas) para crear un Data Warehouse dimensional usando star-schema, y finalmente presenta los KPIs clave en un dashboard de PowerBI Studio.
 
-**Dashboard Final (PowerBI):** [Proximamente...]
-
+**Dashboard Final (PowerBI):** [Click Aquí para ver la Dashboard](https://app.powerbi.com/view?r=eyJrIjoiNmFjNmM3ZGItNmNlZS00MzU5LTk5MmYtNzBjODcwZTIyMmUxIiwidCI6IjNlMDUxM2Q2LTY4ZmEtNDE2ZS04ZGUxLTZjNWNkYzMxOWZmYSIsImMiOjR9)
+ 
 ---
 
 ## 🛠️ Herramientas Utilizadas
