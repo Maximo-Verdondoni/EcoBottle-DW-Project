@@ -35,7 +35,7 @@ def run_pipeline():
     df_fact_payment = build_fact_payment(data, df_dim_calendar,df_dim_customer,df_dim_channel,df_dim_address,df_dim_store, OUTPUT_PATH)
     df_fact_web_session = build_fact_web_session(data, df_dim_calendar, df_dim_customer, OUTPUT_PATH)
     df_fact_sales_order = build_fact_sales_order(data, df_dim_calendar, df_dim_customer, df_dim_channel, df_dim_store, df_dim_address, OUTPUT_PATH)
-    df_fact_sales_order_item = build_fact_sales_order_item(data, df_dim_customer, df_dim_channel, df_dim_store, df_dim_product, OUTPUT_PATH)
+    df_fact_sales_order_item = build_fact_sales_order_item(data, df_dim_calendar,df_dim_customer, df_dim_channel, df_dim_store, df_dim_product, OUTPUT_PATH)
 
     print("✅ Pipeline completado. Archivos guardados en warehouse/")
 

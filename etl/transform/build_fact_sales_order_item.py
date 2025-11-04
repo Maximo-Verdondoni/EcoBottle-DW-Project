@@ -1,6 +1,6 @@
 # etl/transform/build_fact_sales_order_item.py
 import pandas as pd
-def build_fact_sales_order_item(data,dim_customer,dim_channel,dim_store,dim_product, output_path):
+def build_fact_sales_order_item(data,dim_calendar,dim_customer,dim_channel,dim_store,dim_product, output_path):
     """
     Genera una tabla de hechos sales_order con campos:
     id, customer_id, channel_id, store_id, product_id,
@@ -8,6 +8,7 @@ def build_fact_sales_order_item(data,dim_customer,dim_channel,dim_store,dim_prod
     """
     fact_sales_order_item = data["sales_order_item"].copy()
     sales_order = data["sales_order"].copy()
+    dim_calendar = dim_calendar.copy()
     dim_customer = dim_customer.copy()
     dim_channel = dim_channel.copy()
     dim_store = dim_store.copy()
@@ -15,7 +16,7 @@ def build_fact_sales_order_item(data,dim_customer,dim_channel,dim_store,dim_prod
 
     fact_sales_order_item = pd.merge(
         fact_sales_order_item,
-        sales_order[['order_id', 'customer_id', 'channel_id', 'store_id']],
+        sales_order[['order_id', 'customer_id', 'channel_id', 'store_id', 'order_date']],
         on="order_id",
         how="left"
     )
@@ -62,12 +63,33 @@ def build_fact_sales_order_item(data,dim_customer,dim_channel,dim_store,dim_prod
     ).drop(columns=["product_id", "product_key"])
     fact_sales_order_item = fact_sales_order_item.rename(columns={"id": "product_id"})
 
+    #DIM CALENDAR
+    #separamos order_date en fecha y hora
+    fact_sales_order_item['order_date'] = pd.to_datetime(fact_sales_order_item['order_date'])
+    fact_sales_order_item['new_order_date'] = fact_sales_order_item['order_date'].dt.normalize()
+    fact_sales_order_item['order_time'] = fact_sales_order_item['order_date'].dt.time
+    fact_sales_order_item = fact_sales_order_item.drop(columns=['order_date'])
+
+     #usamos la sk de dim_calendar para shipment_at_date
+    fact_sales_order_item = pd.merge(
+        fact_sales_order_item,
+        dim_calendar, 
+        left_on='new_order_date', # La NK de la tabla de hechos
+        right_on='date',             # La NK de la dimensión
+        how='left'
+    )
+    fact_sales_order_item = fact_sales_order_item.drop(columns=["new_order_date", "date"])
+    fact_sales_order_item = fact_sales_order_item.rename(columns={'id': 'order_date_id'})
+    fact_sales_order_item["order_date_id"] = fact_sales_order_item["order_date_id"].astype("Int64") #para que sea int por si hay algun NaN
+
+
+
     #surrogate key
     fact_sales_order_item['id'] = range(1, len(fact_sales_order_item) + 1)
 
     # Seleccionar y renombrar columnas finales
     fact_sales_order_item = fact_sales_order_item[[
-        'id', 'customer_id', 'channel_id', 'store_id', 'product_id',
+        'id', 'customer_id', 'channel_id', 'store_id', 'product_id', 'order_date_id',
         'quantity', 'unit_price', 'discount_amount', 'line_total'
     ]]
 
