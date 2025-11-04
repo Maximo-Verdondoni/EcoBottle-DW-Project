@@ -2,9 +2,9 @@
 
 Proyecto final para la materia "Introducción al Marketing Online y los Negocios Digitales". El objetivo es diseñar e implementar un mini-ecosistema de datos comercial (online + offline) para la empresa ficticia EcoBottle.
 
-El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (Pandas) para crear un Data Warehouse dimensional usando star-schema, y finalmente presenta los KPIs clave en un dashboard de Looker Studio.
+El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (Pandas) para crear un Data Warehouse dimensional usando star-schema, y finalmente presenta los KPIs clave en un dashboard de PowerBI Studio.
 
-**Dashboard Final (Looker Studio):** [Proximamente...]
+**Dashboard Final (PowerBI):** [Proximamente...]
 
 ---
 
@@ -13,7 +13,7 @@ El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (P
 * **Python 3.10+**
 * **Pandas:** Para las transformaciones (ETL).
 * **Git / GitHub:** Para control de versiones y gestión del proyecto.
-* **Looker Studio (Google Data Studio):** Para la visualización y el dashboard.
+* **PowerBI Studio (Google Data Studio):** Para la visualización y el dashboard.
 
 ---
 
@@ -34,7 +34,7 @@ El proyecto sigue una estructura ETL clásica:
     * **`etl/extract/`**: Scripts para leer los datos desde `data/raw/`.
     * **`etl/transform/`**: Scripts para limpiar, denormalizar y construir cada tabla de Dimensión y Hechos.
     * **`etl/load/`**: Scripts para guardar los dataframes transformados en el directorio `warehouse/`.
-3.  **`warehouse/`**: Es el Data Warehouse de salida. Los archivos aquí están listos para ser consumidos por Looker Studio:
+3.  **`warehouse/`**: Es el Data Warehouse de salida. Los archivos aquí están listos para ser consumidos por PowerBI:
     * **`warehouse/dim/`**: Contiene las tablas de dimensiones (ej. `dim_products.csv`, `dim_customers.csv`).
     * **`warehouse/fact/`**: Contiene las tablas de hechos (ej. `fact_sales_order.csv`, `fact_nps_response.csv`).
 4.  **`main.py`**: El script orquestador que llama a las funciones de `extract`, `transform` y `load` en el orden correcto.
