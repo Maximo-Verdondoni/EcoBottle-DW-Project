@@ -1,4 +1,4 @@
-# TP Final: Ecosistema de Datos de Marketing (EcoBottle)
+# Ecosistema de Datos de Marketing (EcoBottle)
 
 Proyecto final para la materia "Introducción al Marketing Online y los Negocios Digitales". El objetivo es diseñar e implementar un mini-ecosistema de datos comercial (online + offline) para la empresa ficticia EcoBottle.
 
@@ -13,7 +13,7 @@ El pipeline completo ingesta datos crudos (CSV), los transforma usando Python (P
 * **Python 3.10+**
 * **Pandas:** Para las transformaciones (ETL).
 * **Git / GitHub:** Para control de versiones y gestión del proyecto.
-* **PowerBI Studio (Google Data Studio):** Para la visualización y el dashboard.
+* **PowerBI Studio:** Para la visualización y el dashboard.
 
 ---
 
