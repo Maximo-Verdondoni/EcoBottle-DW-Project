@@ -85,7 +85,7 @@ El Data Warehouse (`warehouse/`) se compone de las siguientes tablas:
 ### Dimensiones (`warehouse/dim/`)
 
 * `dim_address.csv`: Maestro de direcciones, desnormalizado con su provincia.
-* `dim_calendar.csv`: (Generada en Python) Dimensión de tiempo para análisis de series temporales.
+* `dim_calendar.csv`: Dimensión de tiempo que permite el análisis temporal.
 * `dim_channel.csv`: Catálogo de canales de venta (Online/Offline).
 * `dim_customers.csv`: Maestro de clientes.
 * `dim_products.csv`: Maestro de productos, desnormalizado con su categoría.
