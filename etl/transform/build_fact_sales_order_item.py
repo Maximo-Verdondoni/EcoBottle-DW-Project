@@ -1,6 +1,6 @@
 # etl/transform/build_fact_sales_order_item.py
 import pandas as pd
-def build_fact_sales_order_item(data,dim_calendar,dim_customer,dim_channel,dim_store,dim_product, output_path):
+def build_fact_sales_order_item(data,dim_calendar,dim_customer,dim_channel,dim_address,dim_store,dim_product, output_path):
     """
     Genera una tabla de hechos sales_order con campos:
     id, customer_id, channel_id, store_id, product_id,
@@ -11,12 +11,13 @@ def build_fact_sales_order_item(data,dim_calendar,dim_customer,dim_channel,dim_s
     dim_calendar = dim_calendar.copy()
     dim_customer = dim_customer.copy()
     dim_channel = dim_channel.copy()
+    dim_address = dim_address.copy()
     dim_store = dim_store.copy()
     dim_product = dim_product.copy()
 
     fact_sales_order_item = pd.merge(
         fact_sales_order_item,
-        sales_order[['order_id', 'customer_id', 'channel_id', 'store_id', 'order_date']],
+        sales_order[['order_id', 'customer_id', 'channel_id', 'store_id', 'order_date', 'billing_address_id', 'shipping_address_id']],
         on="order_id",
         how="left"
     )
@@ -63,6 +64,29 @@ def build_fact_sales_order_item(data,dim_calendar,dim_customer,dim_channel,dim_s
     ).drop(columns=["product_id", "product_key"])
     fact_sales_order_item = fact_sales_order_item.rename(columns={"id": "product_id"})
 
+    #DIM ADDRESS
+    #billing
+    fact_sales_order_item = pd.merge(
+        fact_sales_order_item,
+        dim_address,
+        left_on="billing_address_id",
+        right_on="address_key",
+        how="left",
+        suffixes=('_order', '_billing')
+    ).drop(columns=["billing_address_id", "address_key"])
+    fact_sales_order_item = fact_sales_order_item.rename(columns={"id": "billing_address_id"})
+    fact_sales_order_item["billing_address_id"] = fact_sales_order_item["billing_address_id"].astype("Int64")
+    #shipping
+    fact_sales_order_item = pd.merge(
+        fact_sales_order_item,
+        dim_address,
+        left_on="shipping_address_id",
+        right_on="address_key",
+        how="left",
+        suffixes=('_order', '_shipping')
+    ).drop(columns=["shipping_address_id", "address_key"])
+    fact_sales_order_item = fact_sales_order_item.rename(columns={"id": "shipping_address_id"})
+
     #DIM CALENDAR
     #separamos order_date en fecha y hora
     fact_sales_order_item['order_date'] = pd.to_datetime(fact_sales_order_item['order_date'])
@@ -90,6 +114,7 @@ def build_fact_sales_order_item(data,dim_calendar,dim_customer,dim_channel,dim_s
     # Seleccionar y renombrar columnas finales
     fact_sales_order_item = fact_sales_order_item[[
         'id', 'customer_id', 'channel_id', 'store_id', 'product_id', 'order_date_id',
+        'shipping_address_id', 'billing_address_id',
         'quantity', 'unit_price', 'discount_amount', 'line_total'
     ]]
 
