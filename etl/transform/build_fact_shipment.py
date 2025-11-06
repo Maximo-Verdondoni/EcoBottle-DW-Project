@@ -18,7 +18,7 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
     # PASO 1: Obtener customer_id/shipping_address_id/channel_id desde sales_order
     fact_shipment = pd.merge(
         fact_shipment,
-        sales_order[['order_id', 'customer_id', 'shipping_address_id', 'channel_id']],
+        sales_order[['order_id', 'customer_id', 'shipping_address_id', 'channel_id', 'shipping_fee']],
         on='order_id',
         how='left'
     )
@@ -99,7 +99,7 @@ def build_fact_shipment(data,dim_calendar,dim_customer,dim_channel,dim_address, 
     fact_shipment = fact_shipment[[
         'id', "customer_id", "shipping_address_id", "channel_id",
         'carrier','shipped_at_date_id','shipped_at_time','delivered_at_date_id',
-        'delivered_at_time','tracking_number'
+        'delivered_at_time', 'shipping_fee','tracking_number'
     ]]
 
     # Guardamos en warehouse/fact
